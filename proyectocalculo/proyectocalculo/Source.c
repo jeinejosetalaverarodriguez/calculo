@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>//libreria para operaciones matematicas
 
-double funcion(double x) {//Funcion.
+double funcion(double x) {//Funcion.....
 					 
 	return 	sqrt(x);
 
