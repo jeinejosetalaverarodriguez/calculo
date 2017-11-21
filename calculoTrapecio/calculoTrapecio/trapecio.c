@@ -48,13 +48,13 @@ int main(int argc, char **argv) {
 	t = suma * (h/2);
 	
 	printf("Los valores son:\n");
-	printf("a = %.4lf\n" ,a );
-	printf("b = %.4lf\n", b );
-	printf("h = %.4lf\n", h );
-	printf("la suma es: %.4lf\n", suma );
+	printf("a = %.3lf\n" ,a );
+	printf("b = %.3lf\n", b );
+	printf("h = %.3lf\n", h );
+	printf("la suma es: %.3lf\n", suma );
 
 
-	printf("LA INTEGRAL ES : %.4lf\n", t );
+	printf("LA INTEGRAL ES : %.3lf\n", t );
 
 	system("PAUSE");
 	return 0;
