@@ -114,7 +114,6 @@ int main(int argc, char **argv)
 	
 	Newton_Rapson(-8, 0.0000005, 10);/*Newton Rapson(punto para converger Xo,cota de error,Numero de iteraciones)*/
 	printf("\n");
-	printf("Hello world!\n");
 	system("PAUSE");
 	return 0;
 }
