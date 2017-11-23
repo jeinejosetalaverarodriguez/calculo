@@ -25,10 +25,10 @@ double simpsonSimple(double X0, double Xn, double N){
 }
 
 
-double simpsonCompuestoS() {
-	int N, i;
-	double X0, Xn, X0a, Xna, suma, sumaPar, sumaImpar, f, xi, h;
-	//printf(" *********METODO SIMPSON 1/3************\n");
+double simpsonCompuestoS(double X0, double Xn, int N) {
+	int  i;
+	double  X0a, Xna, suma, sumaPar, sumaImpar, f, xi, h;
+	//printf(" *********METODO SIMPSON************\n");
 
 	/*
 	printf("Ingrese el Limite Inferior de la Integral definida: ");
@@ -37,11 +37,11 @@ double simpsonCompuestoS() {
 	scanf_s("%lf", &Xn);
 	printf("Ingrese un Numero par de Iteraciones : \n");
 	scanf_s("%d", &N);
-	*/
+	
 	X0 = 0;
 	Xn = 1;
 	N = 3;
-
+	*/
 	h = (Xn - X0) / N;
 	suma = 0;
 	f = 0;
@@ -49,30 +49,38 @@ double simpsonCompuestoS() {
 	X0a = h;
 	Xna = 2 * h;
 
-	
+	if (N < 1000)//para no usarlo en VR(solo se muestra cuando calcula VA)
+	{
+		printf("los valores son los siguientes : \n");
+
+		printf("X0= %.3lf\n", X0);
+		printf("Xn= %.3lf\n", Xn);
+		printf("h= %.3lf\n", h);
+		printf("\n////////////////////////////////////////////////////////////////////////////////\n");
+		printf("\n");
+
+	}
 
 	for (i = 0;i < N;i++)//iteracion de la formula de trapecio compuesto(parte2)
 	{
 		xi = Xna + (i*h);
 
 		f = simpsonSimple(X0a, Xna, N);
-		
+
 		suma = suma + f;
-			
-			X0a = Xna;
-			Xna = Xna + h;
-			printf("el intervalo I%d = %.3lf\n",i, suma);
+
+		X0a = Xna;
+		Xna = Xna + h;
+		if (N < 1000)//para no usarlo en VR(solo se muestra cuando calcula VA)
+		{
+			printf("el intervalo I%d = %.3lf\n", i, suma);
 		}
-	printf("los valores son los siguientes : \n");
+	}
+	
+	printf("\n////////////////////////////////////////////////////////////////////////////////\n");
+	printf("\n");
 
-	printf("a= %.3lf\n", X0);
-	printf("b= %.3lf\n", Xn);
-	printf("h= %.3lf\n", h);
-
-	printf("la integral es = %.3lf\n", suma);
-
-
-	return 0;
+	return suma;
 }
 
 
@@ -80,7 +88,7 @@ double simpsonCompuestoS() {
 double simpsonCompuesto() {
 	int N, i;
 	double X0, Xn, X0a, Xna, suma, sumaPar, sumaImpar, f, xi, h;
-	//printf(" *********METODO SIMPSON 1/3************\n");
+	//printf(" *********METODO SIMPSON ************\n");
 
 	/*
 	printf("Ingrese el Limite Inferior de la Integral definida: ");
@@ -151,9 +159,15 @@ return 0;
 
 int main(int argc, char **argv){
 	//simpsonCompuesto();
-	simpsonCompuestoS();
-	
-
+	double ERROR,VA,VR;
+	VR=simpsonCompuestoS(0, 1, 3333);
+	VA=simpsonCompuestoS(0, 1, 3);
+	printf("Valor Aproximado(VA) = %.3lf\n", VA);
+	printf("Valor Real(VR) = %.3lf\n", VR);
+	ERROR= ( VR-VA ) /VR;
+	printf("ERROR= %.9lf\n",ERROR);
+	printf("\n////////////////////////////////////////////////////////////////////////////////\n");
+	printf("\n");
 
 system("PAUSE");
 return 0;
