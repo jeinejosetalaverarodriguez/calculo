@@ -11,11 +11,12 @@ double funcion(double xi) //calcula el valor de f(x)
 	return ((pow(xi,3))/(1+pow(xi,0.5)));
 }
 
+
 double trapecio(double X0, double Xn, int N)//metodo de trapecio compuesto
 {
 	double h, i, suma, F, xi;
 
-	h = (Xn - X0) / N;
+	h = fabs((Xn - X0) / N);
 	i = 0;
 	suma = funcion(X0) + funcion(Xn);//parte no iterativa de la formula de trapecio compuesto(parte1)
 
@@ -25,7 +26,7 @@ double trapecio(double X0, double Xn, int N)//metodo de trapecio compuesto
 		F = 2 * funcion(xi);
 		suma = suma + F;
 	}
-	if (N != 100000)//para no usarlo en VR(solo se muestra cuando calcula VA)
+	if (N < 1000)//para no usarlo en VR(solo se muestra cuando calcula VA)
 	{
 		printf("Los valores son:\n");
 		printf("X0 = %.3lf\n", X0);
@@ -37,6 +38,84 @@ double trapecio(double X0, double Xn, int N)//metodo de trapecio compuesto
 	}
 	return (suma * h * 0.5);
 }
+
+double trapecio2(double X0, double Xn, int N)//metodo de trapecio compuesto
+{
+	double h, i, suma, F, xi;
+
+	h = (Xn - X0) / N;
+	i = 0;
+	suma = 0;
+	
+
+	
+		xi = X0 + (i*h);
+		F = funcion(X0) + funcion(xi);//parte no iterativa de la formula de trapecio compuesto(parte1)
+		suma = (suma + (((xi-X0)/2) * F));
+		
+	
+	if (N < 1000)//para no usarlo en VR(solo se muestra cuando calcula VA)
+	{
+		printf("Los valores son:\n");
+		printf("X0 = %.3lf\n", X0);
+		printf("Xn = %.3lf\n", Xn);
+		printf("h = %.3lf\n", h);
+		printf("\n////////////////////////////////////////////////////////////////////////////////\n");
+		printf("\n");
+		//printf("la suma es: %.3lf\n", suma);
+	}
+	return (suma * h * 0.5);
+}
+
+
+
+double trapecioC(double X0, double Xn, int N) {
+	int  i;
+	double  X0a, Xna, suma, f, xi, h;
+
+	h = (Xn - X0) / N;
+	suma = 0;
+	f = 0;
+	i = 0;
+	X0a = X0;
+	Xna = h;
+
+	if (N < 1000)//para no usarlo en VR(solo se muestra cuando calcula VA)
+	{
+		printf("los valores son los siguientes : \n");
+		printf("X0= %.3lf\n", X0);
+		printf("Xn= %.3lf\n", Xn);
+		printf("h= %.3lf\n", h);
+		printf("\n////////////////////////////////////////////////////////////////////////////////\n");
+		printf("\n");
+
+	}
+
+	for (i = 0;i < N;i++)//iteracion de la formula de trapecio compuesto(parte2)
+	{
+		xi = Xna + (i*h);
+
+		f = trapecio2(X0a, Xna, N);
+
+		suma = suma + f;
+
+		X0a = Xna;
+		Xna = Xna + h;
+		if (N < 1000)//para no usarlo en VR(solo se muestra cuando calcula VA)
+		{
+			printf("el intervalo I%d = %.3lf\n", i, suma);
+		}
+	}
+
+	printf("\n////////////////////////////////////////////////////////////////////////////////\n");
+	printf("\n");
+
+	return suma;
+
+
+}
+
+
 
 int main(int argc, char **argv) {
 
@@ -60,7 +139,9 @@ int main(int argc, char **argv) {
 	printf("\n////////////////////////////////////////////////////////////////////////////////\n");
 	printf("\n");
 	va = trapecio(X0,Xn,N);
-	vr = trapecio(X0, Xn, 100000);
+	vr = trapecio(X0, Xn, 1000);
+	//va = trapecioC(X0, Xn, N);
+	//vr = trapecioC(X0, Xn, 1000);
 
 	printf("Valor aproximado mediante el metodo del trapecio compuesto(VA) : %.11lf\n", va );
 	printf("Valor real de la integral(VR) : %.11lf\n", vr);
